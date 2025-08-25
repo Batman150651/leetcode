@@ -1,36 +1,39 @@
 class Solution {
 public:
-    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
-        int i =0,j = 0;
+     vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        int i = 0, j = 0;
         int d = 1;
+        int m = mat.size();
+        int n = mat[0].size();
         vector<int> res;
-        while(i!=mat.size()-1 || j!=mat[0].size()-1){
-            if(d==1){
-                while(i>=0 && j<mat[0].size()){
-                    res.push_back(mat[i][j]);
+        int index = 0;
+        while (index < m * n) {
+            res.push_back(mat[i][j]);
+            index++;
+            if (d == 1) {
+                if (j == n-1) {
+                    i++;
+                    d = 0;
+                } else if (i == 0) {
+                    j++;
+                    d = 0;
+                } else {
                     i--;
                     j++;
                 }
-                i++;
-                j--;
-                d=0;
-                if(j!=mat[0].size()-1) j++;
-                else i++;
-            }
-            else{
-                while(j>=0 && i<mat.size()){
-                    res.push_back(mat[i][j]);
+            } else {
+                if (i == m - 1) {
+                    j++;
+                    d=1;
+                } else if (j == 0) {
+                    i++;
+                    d=1;
+                } else {
                     i++;
                     j--;
                 }
-                i--;
-                j++;
-                d=1;
-                if(i!=mat.size()-1) i++;
-                else j++;
             }
         }
-        res.push_back(mat[i][j]);
         return res;
     }
 };
